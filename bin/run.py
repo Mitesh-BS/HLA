@@ -46,16 +46,17 @@ if __name__ == '__main__':
     parser.add_argument('--sample_id', type=str, required = True, help='Sample ID/Name')
     parser.add_argument('--input_bam_path', type=str, required = True, help='Input file')
     parser.add_argument('--output_path', type=str, required = True, help='Output directory')
+    parser.add_argument('--cores', type=str, required = True, help='Number of cores')
     parser.add_argument('--delete', action="store_true",
                         help='Delete all intermediate files')
     parser.add_argument('--full', action="store_true",
                         help='Run full-digit resolution, default: 4-digit')
     args, _ = parser.parse_known_args()
 
-    logger.info('Sample_id: {} Input file: {}'.format(args.sample_id, args.input_bam_path))
+    logger.info('Sample_id: {} Input file: {}, Number of Cores: {}'.format(args.sample_id, args.input_bam_path,args.cores))
     out_local_path = join('hla-' + args.sample_id, args.sample_id + '.json')
     bin_path = join(dirname(abspath(__file__)), 'typer.sh')
-    bin_args = [bin_path, args.input_bam_path, args.sample_id]
+    bin_args = [bin_path, args.input_bam_path, args.sample_id, args.cores]
     if args.delete:
         bin_args += ['delete']
     if args.full:

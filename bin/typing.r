@@ -12,7 +12,7 @@ data.dir <- dirname(code.source)
 align.path <- args[6]
 out.path <- args[7]
 library(parallel)
-options(mc.cores = detectCores())
+options(mc.cores = strtoi(args[8]))
 library(data.table)
 library(lpSolve)
 

@@ -12,6 +12,7 @@ die "usage: $0 fastq output\n" unless $#ARGV >= 1;
 my $doDNA = 1 if $#ARGV > 1;
 my $fastq_file = shift;
 my $out_file = shift;
+my $cores = shift;
 
 print STDERR "processing FASTQ file\n";
 my %qseq;
@@ -60,7 +61,7 @@ while(<IN>)
 print STDERR "\tfound ", scalar(keys %tseq), " HLA exons\n";
 
 print STDERR "processing FASTQ file\n";
-open(IN, "diamond blastx -t . -C 20000 --index-mode 1 --seg no --min-score 10 --top 20 -c 1 -d $root/data/hla -q $fastq_file -f tab --quiet -o /dev/stdout |") or die $!;
+open(IN, "diamond blastx -p $cores -t . -C 20000 --index-mode 1 --seg no --min-score 10 --top 20 -c 1 -d $root/data/hla -q $fastq_file -f tab --quiet -o /dev/stdout |") or die $!;
 my %mLEN;
 my %mlen;
 my %match;
